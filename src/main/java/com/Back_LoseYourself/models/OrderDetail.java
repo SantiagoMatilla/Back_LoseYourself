@@ -1,11 +1,22 @@
 package com.Back_LoseYourself.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Detalles de Ordenes")
 public class OrderDetail {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private double quantity;
     private double price;
     private double total;
+
+    @OneToOne
+    private Order order;
+    @ManyToOne
+    private Product product;
 
     public Integer getId() {
         return id;
@@ -47,12 +58,30 @@ public class OrderDetail {
         this.total = total;
     }
 
-    public OrderDetail(Integer id, String name, double quantity, double price, double total) {
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public OrderDetail(Integer id, String name, double quantity, double price, double total, Order order, Product product) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.total = total;
+        this.order = order;
+        this.product = product;
     }
 
     public OrderDetail() {

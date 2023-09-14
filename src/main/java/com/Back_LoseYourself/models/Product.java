@@ -1,12 +1,21 @@
 package com.Back_LoseYourself.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "productos")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String description;
     private String image;
     private String price;
     private String quantity;
+
+    @ManyToOne
+    private User user;
 
     public Integer getId() {
         return id;
@@ -56,13 +65,22 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(Integer id, String name, String description, String image, String price, String quantity) {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Product(Integer id, String name, String description, String image, String price, String quantity, User user) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
         this.price = price;
         this.quantity = quantity;
+        this.user = user;
     }
 
     public Product() {
